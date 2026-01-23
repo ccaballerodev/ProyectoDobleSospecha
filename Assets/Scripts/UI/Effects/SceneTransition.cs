@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
@@ -69,5 +70,12 @@ public class SceneTransition : MonoBehaviour
 
         // Ejecutamos la conexión (Host o Join)
         accionAlOscurecer?.Invoke();
+    }
+
+    public void CambiarEscena(string nombreEscena)
+    {
+        StartCoroutine(ProcesoTransicion(() => {
+            SceneManager.LoadScene(nombreEscena);
+        }));
     }
 }
