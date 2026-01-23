@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393637eff2dc26c4faf9f7c4e8bb9aa9, type: 3}
+  m_Name: Lavadora
+  m_EditorClassIdentifier: Assembly-CSharp::CasoData
+  premisa: lavar dinero en una lavadora
+  evidencias:
+  - nombreEvidencia: dinero mojado
+    acusaciones:
+    - texto: a mi me pagan por nequi asi que los billetes deben ser tuyos.
+      puntos: 40
+    - texto: tu tienes la ropa mojada asi que seguro tu lavaste el dinero.
+      puntos: 2
+    - texto: yo ne he lavado mi ropa en 2 semanas (tiene la ropa limpia) asi que
+        obviamente no he lavado nada.
+      puntos: 3
+    - texto: "Adem\xE1s, ese dinero huele a suavizante\u2026 nadie suaviza billetes
+        por accidente.\r\n"
+      puntos: 4
+    defensas:
+    - texto: a mi ni siquiera me pagan, soy pasante en una empresa de empanadas.
+      puntos: 1
+    - texto: "mis cosas las lava mi mam\xE1 asi que yo no tengo nada que ver en este
+        crimen."
+      puntos: 2
+    - texto: 'yo gaste toda mi plata en un juego asi que no tengo plata que pueda
+        lavar.
+
+'
+      puntos: 3
+    - texto: "Eso no es olor a suavizante, es mi perfume econ\xF3mico mezclado con
+        humedad."
+      puntos: 4
+  - nombreEvidencia: lavadora rota
+    acusaciones:
+    - texto: "Yo lavo en lavander\xEDa. Si alguien arruin\xF3 una lavadora en su
+        casa, claramente no fui yo."
+      puntos: 1
+    - texto: "Esa lavadora est\xE1 rota\u2026 la m\xEDa todav\xEDa sirve. Bueno,
+        creo. Igual no es m\xEDa."
+      puntos: 2
+    - texto: "A m\xED ni me alcanza pa pagar una lavadora, mucho menos pa lavar dinero.\r\n"
+      puntos: 3
+    - texto: "Casualmente la lavadora se da\xF1\xF3 justo despu\xE9s del \u201Clavado
+        misterioso\u201D, qu\xE9 conveniente."
+      puntos: 4
+    defensas:
+    - texto: 'colombiano que se respeta no lava su ropa.
+
+'
+      puntos: 1
+    - texto: en mi cerro no llega luz, asi que yo lavo mi ropa a mano.
+      puntos: 2
+    - texto: "yo tengo que lavar mi ropa en la casa de mi mam\xE1.\r\n"
+      puntos: 3
+    - texto: "Esa lavadora lleva rota desde antes de que yo naciera, eso ya es patrimonio
+        hist\xF3rico."
+      puntos: 4
