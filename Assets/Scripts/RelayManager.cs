@@ -10,6 +10,8 @@ using Unity.Services.Multiplayer;
 
 public class RelayManager : MonoBehaviour
 {
+    public static string joinCodeGame;
+
     async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -19,10 +21,13 @@ public class RelayManager : MonoBehaviour
 
     public async void Host()
     {
-        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4);
+
+        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
         string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
         Debug.Log("JOIN CODE: " + joinCode);
+
+        joinCodeGame = joinCode;
 
         var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         
