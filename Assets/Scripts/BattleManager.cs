@@ -33,7 +33,6 @@ public class BattleManager : NetworkBehaviour
 
         ActualizarInterfazLocal();
 
-        // Suscripciones
         evidenciaIndice.OnValueChanged += (oldVal, newVal) => ActualizarInterfazLocal();
         esFaseAcusacion.OnValueChanged += (oldVal, newVal) => ActualizarInterfazLocal();
 
@@ -55,8 +54,6 @@ public class BattleManager : NetworkBehaviour
             return;
         }
 
-        // --- ESTA ES LA CLAVE ---
-        // Si estamos tipeando, NO permitimos que esta función habilite botones
         if (estaTipeando)
         {
             foreach (var btn in optionButtons) btn.interactable = false;
@@ -77,7 +74,6 @@ public class BattleManager : NetworkBehaviour
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            // Solo se habilitan si es mi turno Y no se está tipeando
             optionButtons[i].interactable = miTurno;
 
             if (miTurno)
@@ -96,7 +92,6 @@ public class BattleManager : NetworkBehaviour
 
     public void OnOptionSelected(int index)
     {
-        // Bloqueo preventivo inmediato en el cliente que presiona
         foreach (var btn in optionButtons) btn.interactable = false;
         SubmitSelectionServerRpc(index);
     }
@@ -133,17 +128,23 @@ public class BattleManager : NetworkBehaviour
     [ClientRpc]
     void ShowDialogueClientRpc(string fullText)
     {
-        // Forzamos detener cualquier tipeo anterior antes de empezar el nuevo
         StopCoroutine("TypeSentence");
-        StartCoroutine(TypeSentence(fullText));
+
+        // Determinamos quién está hablando basándonos en el texto
+        // Si el texto empieza con "ACUSADOR", el ID es 0, si no, es 1
+        bool esTurnoAcusador = fullText.StartsWith("ACUSADOR");
+        ulong hablandoId = esTurnoAcusador ? (ulong)0 : (ulong)1;
+
+        StartCoroutine(TypeSentence(fullText, hablandoId));
     }
 
-    IEnumerator TypeSentence(string sentence)
+    IEnumerator TypeSentence(string sentence, ulong autorId)
     {
         estaTipeando = true;
-
-        // Mientras la corrutina corre, nos aseguramos que los botones estén apagados
         foreach (var btn in optionButtons) btn.interactable = false;
+
+        // --- ACTIVAR ANIMACIÓN DE HABLAR ---
+        ControlarAnimacionJugador(autorId, "Hablar");
 
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray())
@@ -152,11 +153,35 @@ public class BattleManager : NetworkBehaviour
             yield return new WaitForSeconds(0.03f);
         }
 
-        // Ya terminó de escribir
-        estaTipeando = false;
+        // --- VOLVER A ESPERAR ---
+        ControlarAnimacionJugador(autorId, "Esperar");
 
-        // Ahora sí llamamos a la lógica de turnos para que habilite al que sigue
+        estaTipeando = false;
         ActualizarInterfazLocal();
+    }
+
+    private void ControlarAnimacionJugador(ulong id, string trigger)
+    {
+        // 1. Buscamos al cliente por su ID (0 para Host, 1 para Cliente)
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var networkClient))
+        {
+            var playerObject = networkClient.PlayerObject;
+            if (playerObject != null)
+            {
+                // 2. Buscamos TODOS los animadores que hay dentro del jugador (en sus hijos)
+                Animator[] anims = playerObject.GetComponentsInChildren<Animator>(true);
+
+                foreach (Animator anim in anims)
+                {
+                    // 3. SOLO activamos el trigger en el modelo que está encendido (Active)
+                    // Esto es importante porque el otro modelo está oculto
+                    if (anim.gameObject.activeInHierarchy)
+                    {
+                        anim.SetTrigger(trigger);
+                    }
+                }
+            }
+        }
     }
 
     private void BloquearPorFaltaDeJugadores()
