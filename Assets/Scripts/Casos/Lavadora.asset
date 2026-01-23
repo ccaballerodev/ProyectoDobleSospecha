@@ -15,6 +15,7 @@ MonoBehaviour:
   premisa: lavar dinero en una lavadora
   evidencias:
   - nombreEvidencia: dinero mojado
+    imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
     acusaciones:
     - texto: a mi me pagan por nequi asi que los billetes deben ser tuyos.
       puntos: 40
@@ -41,6 +42,7 @@ MonoBehaviour:
         humedad."
       puntos: 4
   - nombreEvidencia: lavadora rota
+    imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
     acusaciones:
     - texto: "Yo lavo en lavander\xEDa. Si alguien arruin\xF3 una lavadora en su
         casa, claramente no fui yo."

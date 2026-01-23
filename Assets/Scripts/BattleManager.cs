@@ -3,10 +3,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using DG.Tweening;
 
 public class BattleManager : NetworkBehaviour
 {
-    [Header("UI References")]
+    [Header("UI Presentación Evidencia")]
+    [SerializeField] private CanvasGroup panelPresentacion;
+    [SerializeField] private Image imagenPresentacion;
+    [SerializeField] private TextMeshProUGUI textoPresentacion;
+
+    [Header("UI General")]
     [SerializeField] private TextMeshProUGUI evidenceTitleText;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Button[] optionButtons;
@@ -19,8 +25,9 @@ public class BattleManager : NetworkBehaviour
     [Header("Data")]
     [SerializeField] private CasoData casoActual;
 
-    private int puntosAcusacionActual = 0;
+    private bool juegoIniciado = false;
     private bool estaTipeando = false;
+    private int puntosAcusacionActual = 0;
 
     private NetworkVariable<int> evidenciaIndice = new NetworkVariable<int>(0);
     private NetworkVariable<bool> esFaseAcusacion = new NetworkVariable<bool>(true);
@@ -28,60 +35,106 @@ public class BattleManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        // Forzar estado invisible al inicio para todos
+        panelPresentacion.alpha = 0;
+        panelPresentacion.gameObject.SetActive(false);
+        foreach (var btn in optionButtons) btn.interactable = false;
+
         NetworkManager.Singleton.OnClientConnectedCallback += OnPlayerCountChanged;
-        NetworkManager.Singleton.OnClientDisconnectCallback += OnPlayerCountChanged;
 
-        ActualizarInterfazLocal();
+        // Escuchar cambio de evidencia
+        evidenciaIndice.OnValueChanged += (oldVal, newVal) => {
+            if (IsClient) StartCoroutine(SecuenciaCambioEvidencia());
+        };
 
-        evidenciaIndice.OnValueChanged += (oldVal, newVal) => ActualizarInterfazLocal();
         esFaseAcusacion.OnValueChanged += (oldVal, newVal) => ActualizarInterfazLocal();
 
         inclinacionCulpabilidad.OnValueChanged += (oldVal, newVal) => {
             StopCoroutine("MoverAguja");
             StartCoroutine(MoverAguja(newVal));
         };
+
+        ActualizarInterfazLocal();
     }
 
-    private void OnPlayerCountChanged(ulong id) => ActualizarInterfazLocal();
-
-    void ActualizarInterfazLocal()
+    private void OnPlayerCountChanged(ulong id)
     {
-        bool faltanJugadores = NetworkManager.Singleton.ConnectedClients.Count < 2;
-
-        if (faltanJugadores)
+        // Solo el Host decide cuándo arrancar oficialmente
+        if (IsServer && !juegoIniciado && NetworkManager.Singleton.ConnectedClients.Count >= 2)
         {
-            BloquearPorFaltaDeJugadores();
-            return;
+            juegoIniciado = true;
+            // Llamamos a un ClientRpc para que todos sepan que el juego inició
+            IniciarJuegoClientRpc();
         }
+        ActualizarInterfazLocal();
+    }
 
-        if (estaTipeando)
-        {
-            foreach (var btn in optionButtons) btn.interactable = false;
-            return;
-        }
+    [ClientRpc]
+    void IniciarJuegoClientRpc()
+    {
+        juegoIniciado = true;
+        StartCoroutine(SecuenciaCambioEvidencia());
+    }
+
+    IEnumerator SecuenciaCambioEvidencia()
+    {
+        // Bloqueo estricto
+        foreach (var btn in optionButtons) btn.interactable = false;
 
         int evIdx = evidenciaIndice.Value;
         if (evIdx >= casoActual.evidencias.Length)
         {
             evidenceTitleText.text = "Veredicto Final";
+            yield break;
+        }
+
+        // Configurar UI antes del Fade
+        var evidencia = casoActual.evidencias[evIdx];
+        imagenPresentacion.sprite = evidencia.imagenEvidencia;
+        textoPresentacion.text = evidencia.nombreEvidencia;
+        evidenceTitleText.text = "Evidencia: " + evidencia.nombreEvidencia;
+
+        // Asegurar que el panel esté listo para el Fade In
+        panelPresentacion.gameObject.SetActive(true);
+        panelPresentacion.alpha = 0;
+        panelPresentacion.transform.localScale = Vector3.one * 0.8f;
+
+        // Animación Fade In
+        panelPresentacion.DOFade(1f, 0.8f);
+        panelPresentacion.transform.DOScale(1f, 0.8f).SetEase(Ease.OutBack);
+
+        yield return new WaitForSeconds(3f);
+
+        // Animación Fade Out
+        panelPresentacion.DOFade(0f, 0.5f).OnComplete(() => panelPresentacion.gameObject.SetActive(false));
+        yield return new WaitForSeconds(0.6f);
+
+        ActualizarInterfazLocal();
+    }
+
+    void ActualizarInterfazLocal()
+    {
+        if (NetworkManager.Singleton.ConnectedClients.Count < 2)
+        {
+            BloquearPorFaltaDeJugadores();
             return;
         }
 
-        evidenceTitleText.text = "Evidencia: " + casoActual.evidencias[evIdx].nombreEvidencia;
+        // No habilitar nada si estamos en medio de procesos visuales
+        if (!juegoIniciado || estaTipeando || panelPresentacion.gameObject.activeInHierarchy) return;
 
+        int evIdx = evidenciaIndice.Value;
         bool esAcusador = (NetworkManager.Singleton.LocalClientId == 0);
         bool miTurno = (esFaseAcusacion.Value && esAcusador) || (!esFaseAcusacion.Value && !esAcusador);
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
             optionButtons[i].interactable = miTurno;
-
             if (miTurno)
             {
-                if (esFaseAcusacion.Value)
-                    buttonTexts[i].text = casoActual.evidencias[evIdx].acusaciones[i].texto;
-                else
-                    buttonTexts[i].text = casoActual.evidencias[evIdx].defensas[i].texto;
+                buttonTexts[i].text = esFaseAcusacion.Value ?
+                    casoActual.evidencias[evIdx].acusaciones[i].texto :
+                    casoActual.evidencias[evIdx].defensas[i].texto;
             }
             else
             {
@@ -99,8 +152,6 @@ public class BattleManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void SubmitSelectionServerRpc(int index, ServerRpcParams rpcParams = default)
     {
-        if (NetworkManager.Singleton.ConnectedClients.Count < 2) return;
-
         int evIdx = evidenciaIndice.Value;
         string textoElegido = "";
 
@@ -109,6 +160,7 @@ public class BattleManager : NetworkBehaviour
             puntosAcusacionActual = casoActual.evidencias[evIdx].acusaciones[index].puntos;
             textoElegido = "ACUSADOR: " + casoActual.evidencias[evIdx].acusaciones[index].texto;
             esFaseAcusacion.Value = false;
+            ShowDialogueClientRpc(textoElegido, false); // false = no cambiar de evidencia aún
         }
         else
         {
@@ -119,31 +171,25 @@ public class BattleManager : NetworkBehaviour
             inclinacionCulpabilidad.Value = Mathf.Clamp(inclinacionCulpabilidad.Value + balanceRonda, -1f, 1f);
 
             esFaseAcusacion.Value = true;
-            evidenciaIndice.Value++;
+            // Indicamos que después de este diálogo DEBE cambiar la evidencia
+            ShowDialogueClientRpc(textoElegido, true);
         }
-
-        ShowDialogueClientRpc(textoElegido);
     }
 
     [ClientRpc]
-    void ShowDialogueClientRpc(string fullText)
+    void ShowDialogueClientRpc(string fullText, bool debeCambiarEvidencia)
     {
         StopCoroutine("TypeSentence");
-
-        // Determinamos quién está hablando basándonos en el texto
-        // Si el texto empieza con "ACUSADOR", el ID es 0, si no, es 1
         bool esTurnoAcusador = fullText.StartsWith("ACUSADOR");
         ulong hablandoId = esTurnoAcusador ? (ulong)0 : (ulong)1;
-
-        StartCoroutine(TypeSentence(fullText, hablandoId));
+        StartCoroutine(TypeSentence(fullText, hablandoId, debeCambiarEvidencia));
     }
 
-    IEnumerator TypeSentence(string sentence, ulong autorId)
+    IEnumerator TypeSentence(string sentence, ulong autorId, bool cambiarEvidenciaAlFinal)
     {
         estaTipeando = true;
         foreach (var btn in optionButtons) btn.interactable = false;
 
-        // --- ACTIVAR ANIMACIÓN DE HABLAR ---
         ControlarAnimacionJugador(autorId, "Hablar");
 
         dialogueText.text = "";
@@ -153,45 +199,31 @@ public class BattleManager : NetworkBehaviour
             yield return new WaitForSeconds(0.03f);
         }
 
-        // --- VOLVER A ESPERAR ---
         ControlarAnimacionJugador(autorId, "Esperar");
-
         estaTipeando = false;
-        ActualizarInterfazLocal();
-    }
 
-    private void ControlarAnimacionJugador(ulong id, string trigger)
-    {
-        // 1. Buscamos al cliente por su ID (0 para Host, 1 para Cliente)
-        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var networkClient))
+        if (cambiarEvidenciaAlFinal)
         {
-            var playerObject = networkClient.PlayerObject;
-            if (playerObject != null)
-            {
-                // 2. Buscamos TODOS los animadores que hay dentro del jugador (en sus hijos)
-                Animator[] anims = playerObject.GetComponentsInChildren<Animator>(true);
-
-                foreach (Animator anim in anims)
-                {
-                    // 3. SOLO activamos el trigger en el modelo que está encendido (Active)
-                    // Esto es importante porque el otro modelo está oculto
-                    if (anim.gameObject.activeInHierarchy)
-                    {
-                        anim.SetTrigger(trigger);
-                    }
-                }
-            }
+            yield return new WaitForSeconds(1f); // Pausa dramática antes de la nueva evidencia
+            if (IsServer) evidenciaIndice.Value++;
+        }
+        else
+        {
+            ActualizarInterfazLocal();
         }
     }
 
-    private void BloquearPorFaltaDeJugadores()
+    // --- MÉTODOS DE APOYO (Animación y Aguja) ---
+
+    private void ControlarAnimacionJugador(ulong id, string trigger)
     {
-        evidenceTitleText.text = "Sala de espera";
-        dialogueText.text = "Buscando otro sospechoso...";
-        foreach (var btn in optionButtons)
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var networkClient))
         {
-            btn.interactable = false;
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Esperando jugador...";
+            var anim = networkClient.PlayerObject.GetComponentInChildren<Animator>();
+            if (anim != null && anim.gameObject.activeInHierarchy)
+            {
+                anim.SetTrigger(trigger);
+            }
         }
     }
 
@@ -205,5 +237,16 @@ public class BattleManager : NetworkBehaviour
             yield return null;
         }
         agujaTransform.localRotation = targetRotation;
+    }
+
+    private void BloquearPorFaltaDeJugadores()
+    {
+        evidenceTitleText.text = "Sala de espera";
+        dialogueText.text = "Buscando otro sospechoso...";
+        foreach (var btn in optionButtons)
+        {
+            btn.interactable = false;
+            buttonTexts[btn.transform.GetSiblingIndex()].text = "Esperando jugador...";
+        }
     }
 }

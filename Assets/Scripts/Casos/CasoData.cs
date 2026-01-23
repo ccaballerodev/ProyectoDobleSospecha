@@ -18,6 +18,7 @@ public struct FraseConValor
 public struct EvidenciaConPuntos
 {
     public string nombreEvidencia;
-    public FraseConValor[] acusaciones; // 4 opciones
-    public FraseConValor[] defensas;    // 4 opciones
+    public Sprite imagenEvidencia; 
+    public FraseConValor[] acusaciones;
+    public FraseConValor[] defensas;
 }
