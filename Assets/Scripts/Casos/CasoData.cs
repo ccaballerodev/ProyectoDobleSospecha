@@ -4,13 +4,20 @@ using UnityEngine;
 public class CasoData : ScriptableObject
 {
     public string premisa;
-    public Evidencia[] evidencias;
+    public EvidenciaConPuntos[] evidencias;
 }
 
 [System.Serializable]
-public struct Evidencia
+public struct FraseConValor
+{
+    [TextArea] public string texto;
+    public int puntos; // El "valor oculto"
+}
+
+[System.Serializable]
+public struct EvidenciaConPuntos
 {
     public string nombreEvidencia;
-    [TextArea] public string[] acusaciones; // Siempre 4
-    [TextArea] public string[] defensas;    // Siempre 4
+    public FraseConValor[] acusaciones; // 4 opciones
+    public FraseConValor[] defensas;    // 4 opciones
 }
