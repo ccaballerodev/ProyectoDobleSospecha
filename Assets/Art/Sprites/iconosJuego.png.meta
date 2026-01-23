@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: 1ed25df9354b57249b1b88fa30935db7
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: iconosJuego_0
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 230
+        width: 79
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69a7e724c6152484da59823cb3ebef64
+      internalID: -839933184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_1
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 230
+        width: 55
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e1bd0554b82d13439539cc9ed9a4d32
+      internalID: 1280207054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_2
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 233
+        width: 73
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4223e9ba092c744eb62068d718ff38b
+      internalID: -227196937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_3
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 235
+        width: 101
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24cd897f8ec60904ea921b7d9e00e626
+      internalID: -2059651651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_4
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 289
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c624a50747f7310479084f82ff1f482b
+      internalID: 730932364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_5
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 284
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b0c178c43022af448bafd920c2e7b8c
+      internalID: -400359235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_6
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 232
+        width: 74
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fac678700a76c4d904b1973cb9772a
+      internalID: 393780618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_7
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 234
+        width: 87
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 811909ee2e5369c428f8b93d2648e389
+      internalID: 1063275826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_8
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 271
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad9f4ba95f5116f40bd99cf45f56e409
+      internalID: 1532056954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_30
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 126
+        width: 58
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc4084680a6cea45832133f0ab96ac8
+      internalID: -151006549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_31
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 183
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 162e14a108d6cd549bf520025f01dec7
+      internalID: -2113018491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_32
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 124
+        width: 91
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53158881e6da554389a339d8de2aef0
+      internalID: -815699142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_33
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 127
+        width: 102
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90fb2936d7e13fa44938c4f801017f09
+      internalID: 1781960540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconosJuego_34
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 123
+        width: 100
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4fd5dcfd659f14bb79843ecb963e66
+      internalID: -1687181833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9bad3e02bf8e2eb4b936d1e9e0f45095
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      iconosJuego_0: -839933184
+      iconosJuego_1: 1280207054
+      iconosJuego_10: 1759018765
+      iconosJuego_11: 185567849
+      iconosJuego_12: -53570955
+      iconosJuego_13: -1110245796
+      iconosJuego_14: -874103230
+      iconosJuego_15: -1537796293
+      iconosJuego_16: -309063267
+      iconosJuego_17: 1344466591
+      iconosJuego_18: 2003439195
+      iconosJuego_19: -174637350
+      iconosJuego_2: -227196937
+      iconosJuego_20: 1978142122
+      iconosJuego_21: -1837251040
+      iconosJuego_22: -934614072
+      iconosJuego_23: 612615092
+      iconosJuego_24: 1922475599
+      iconosJuego_25: 189444805
+      iconosJuego_26: -63363466
+      iconosJuego_27: 1496615529
+      iconosJuego_28: -1070177703
+      iconosJuego_29: -2085728164
+      iconosJuego_3: -2059651651
+      iconosJuego_30: -151006549
+      iconosJuego_31: -2113018491
+      iconosJuego_32: -815699142
+      iconosJuego_33: 1781960540
+      iconosJuego_34: -1687181833
+      iconosJuego_35: -239058605
+      iconosJuego_36: 1972198762
+      iconosJuego_37: 784264898
+      iconosJuego_38: -1778500431
+      iconosJuego_39: -710423242
+      iconosJuego_4: 730932364
+      iconosJuego_40: 1806854571
+      iconosJuego_41: 1444063055
+      iconosJuego_42: 1153348767
+      iconosJuego_43: -1458771451
+      iconosJuego_44: 1777288014
+      iconosJuego_45: -709329206
+      iconosJuego_46: -1009547445
+      iconosJuego_47: -1485320843
+      iconosJuego_48: -1786568394
+      iconosJuego_49: -1591770042
+      iconosJuego_5: -400359235
+      iconosJuego_50: -1849729326
+      iconosJuego_51: -1447990318
+      iconosJuego_52: 615377248
+      iconosJuego_53: -287038295
+      iconosJuego_54: 1285929383
+      iconosJuego_55: 946793166
+      iconosJuego_56: 1523500597
+      iconosJuego_57: 1782664696
+      iconosJuego_58: 1549411231
+      iconosJuego_59: 2043172744
+      iconosJuego_6: 393780618
+      iconosJuego_7: 1063275826
+      iconosJuego_8: 1532056954
+      iconosJuego_9: -1950714985
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
