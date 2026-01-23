@@ -14,56 +14,167 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CasoData
   premisa: lavar dinero en una lavadora
   evidencias:
-  - nombreEvidencia: dinero mojado
+  - nombreEvidencia: Dinero mojado
     imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
     acusaciones:
-    - texto: a mi me pagan por nequi asi que los billetes deben ser tuyos.
-      puntos: 40
-    - texto: tu tienes la ropa mojada asi que seguro tu lavaste el dinero.
-      puntos: 2
-    - texto: yo ne he lavado mi ropa en 2 semanas (tiene la ropa limpia) asi que
+    - texto: A mi me pagan por nequi asi que los billetes deben ser tuyos.
+      puntos: 15
+    - texto: Tu tienes la ropa mojada asi que seguro tu lavaste el dinero.
+      puntos: 20
+    - texto: Yo ne he lavado mi ropa en 2 semanas (tiene la ropa limpia) asi que
         obviamente no he lavado nada.
-      puntos: 3
+      puntos: 10
     - texto: "Adem\xE1s, ese dinero huele a suavizante\u2026 nadie suaviza billetes
         por accidente.\r\n"
-      puntos: 4
+      puntos: 25
     defensas:
-    - texto: a mi ni siquiera me pagan, soy pasante en una empresa de empanadas.
-      puntos: 1
-    - texto: "mis cosas las lava mi mam\xE1 asi que yo no tengo nada que ver en este
+    - texto: A mi ni siquiera me pagan, soy pasante en una empresa de empanadas.
+      puntos: 15
+    - texto: "Mis cosas las lava mi mam\xE1 asi que yo no tengo nada que ver en este
         crimen."
-      puntos: 2
-    - texto: 'yo gaste toda mi plata en un juego asi que no tengo plata que pueda
+      puntos: 10
+    - texto: 'Yo gaste toda mi plata en un juego asi que no tengo plata que pueda
         lavar.
 
 '
-      puntos: 3
+      puntos: 20
     - texto: "Eso no es olor a suavizante, es mi perfume econ\xF3mico mezclado con
         humedad."
-      puntos: 4
-  - nombreEvidencia: lavadora rota
+      puntos: 10
+  - nombreEvidencia: Lavadora rota
     imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
     acusaciones:
     - texto: "Yo lavo en lavander\xEDa. Si alguien arruin\xF3 una lavadora en su
         casa, claramente no fui yo."
-      puntos: 1
+      puntos: 20
     - texto: "Esa lavadora est\xE1 rota\u2026 la m\xEDa todav\xEDa sirve. Bueno,
         creo. Igual no es m\xEDa."
-      puntos: 2
+      puntos: 10
     - texto: "A m\xED ni me alcanza pa pagar una lavadora, mucho menos pa lavar dinero.\r\n"
-      puntos: 3
+      puntos: 15
     - texto: "Casualmente la lavadora se da\xF1\xF3 justo despu\xE9s del \u201Clavado
         misterioso\u201D, qu\xE9 conveniente."
-      puntos: 4
+      puntos: 25
     defensas:
-    - texto: 'colombiano que se respeta no lava su ropa.
+    - texto: 'Colombiano que se respeta no lava su ropa.
 
 '
-      puntos: 1
-    - texto: en mi cerro no llega luz, asi que yo lavo mi ropa a mano.
-      puntos: 2
-    - texto: "yo tengo que lavar mi ropa en la casa de mi mam\xE1.\r\n"
-      puntos: 3
+      puntos: 5
+    - texto: En mi cerro no llega luz, asi que yo lavo mi ropa a mano.
+      puntos: 20
+    - texto: "Yo tengo que lavar mi ropa en la casa de mi mam\xE1.\r\n"
+      puntos: 15
     - texto: "Esa lavadora lleva rota desde antes de que yo naciera, eso ya es patrimonio
         hist\xF3rico."
+      puntos: 10
+  - nombreEvidencia: Detergente sospechosamente caro
+    imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
+    acusaciones:
+    - texto: "Ese detergente vale m\xE1s que mi mercado. Alguien aqu\xED lava algo
+        m\xE1s que ropa."
+      puntos: 25
+    - texto: "Yo uso jab\xF3n Rey desde siempre, as\xED que ese detergente premium
+        no es m\xEDo."
+      puntos: 20
+    - texto: "Si yo tuviera esa plata, no estar\xEDa aqu\xED discutiendo contigo."
+      puntos: 15
+    - texto: "Nadie compra detergente tan caro sin estar lavando algo m\xE1s que
+        camisetas."
       puntos: 4
+    defensas:
+    - texto: "Eso no es detergente caro, es \u201Cinversi\xF3n a largo plazo\u201D."
+      puntos: 10
+    - texto: "Me lo regalaron en una rifa\u2026 creo. No pregunt\xE9 mucho."
+      puntos: 15
+    - texto: "Lo compr\xE9 porque estaba en descuento del 5%. O sea, casi gratis."
+      puntos: 10
+    - texto: "Eso lo compr\xE9 para sentirme exitoso por cinco minutos."
+      puntos: 5
+  - nombreEvidencia: Pelusas y monedas en el filtrowww
+    imagenEvidencia: {fileID: -227196937, guid: 1ed25df9354b57249b1b88fa30935db7, type: 3}
+    acusaciones:
+    - texto: "Hay monedas en el filtro. Alguien meti\xF3 plata donde no iba."
+      puntos: 25
+    - texto: "Yo reviso mis bolsillos antes de lavar. T\xFA no revisas ni tus decisiones."
+      puntos: 15
+    - texto: Esa cantidad de pelusa no es normal, eso parece evidencia criminal.
+      puntos: 10
+    - texto: "Las monedas est\xE1n limpias\u2026 sospechosamente limpias."
+      puntos: 20
+    defensas:
+    - texto: "Eso no es dinero lavado, son ahorros en modo acu\xE1tico."
+      puntos: 5
+    - texto: "Las monedas estaban ah\xED desde antes\u2026 herencia familiar."
+      puntos: 10
+    - texto: "La lavadora se come las monedas sola, yo solo soy una v\xEDctima m\xE1s."
+      puntos: 15
+    - texto: Eso no es limpieza, es desgaste emocional del metal.
+      puntos: 5
+  - nombreEvidencia: Espuma por todo el piso
+    imagenEvidencia: {fileID: 21300000, guid: 22694fd20b8e6b6408734aed1be96558, type: 3}
+    acusaciones:
+    - texto: "Tanta espuma indica lavado intenso\u2026 lavado demasiado intenso."
+      puntos: 20
+    - texto: "Eso no es espuma normal, eso es exceso de detergente\u2026 o exceso
+        de crimen."
+      puntos: 25
+    - texto: 'Yo apenas uso detergente porque rinde. Esa espuma es de alguien con
+        plata sospechosa.
+
+'
+      puntos: 15
+    - texto: "Si la lavadora explot\xF3 en espuma, alguien estaba lavando algo ilegal."
+      puntos: 30
+    defensas:
+    - texto: "La espuma es culpa del detergente, yo solo apret\xE9 un bot\xF3n y
+        hu\xED."
+      puntos: 10
+    - texto: "La espuma sali\xF3 sola, la lavadora es dram\xE1tica."
+      puntos: 5
+    - texto: "Yo solo segu\xED las instrucciones\u2026 bueno, m\xE1s o menos."
+      puntos: 15
+    - texto: "Eso no es espuma, es decoraci\xF3n. Est\xE9tica burbujosa."
+      puntos: 5
+  - nombreEvidencia: Ropa demasiado limpia
+    imagenEvidencia: {fileID: 393780618, guid: 1ed25df9354b57249b1b88fa30935db7, type: 3}
+    acusaciones:
+    - texto: "Esa ropa est\xE1 demasiado limpia. Nadie es as\xED de limpio sin ocultar
+        algo."
+      puntos: 20
+    - texto: "Yo vivo en Colombia, esa ropa no deber\xEDa durar as\xED ni un d\xEDa."
+      puntos: 15
+    - texto: "Eso brilla m\xE1s que mi futuro, claramente hay lavado ah\xED."
+      puntos: 25
+    - texto: "Esa ropa parece reci\xE9n comprada, pero mojada. Expl\xEDcame eso."
+      puntos: 20
+    defensas:
+    - texto: No es mi culpa tener ropa con autoestima alta.
+      puntos: 5
+    - texto: Eso es suavizante, no crimen.
+      puntos: 15
+    - texto: "Si lavar bien fuera delito, medio pa\xEDs estar\xEDa preso."
+      puntos: 10
+    - texto: "La ropa limpia es lo \xFAnico que tengo en orden en mi vida."
+      puntos: 10
+  - nombreEvidencia: Suavizante con olor sospechoso
+    imagenEvidencia: {fileID: -151006549, guid: 1ed25df9354b57249b1b88fa30935db7, type: 3}
+    acusaciones:
+    - texto: Ese suavizante huele demasiado caro para alguien que dice no tener plata.
+      puntos: 25
+    - texto: "Yo uso el m\xE1s barato, ese perfume criminal no es m\xEDo."
+      puntos: 20
+    - texto: "Nadie necesita que la ropa huela as\xED de bien sin ocultar algo."
+      puntos: 15
+    - texto: "Ese olor qued\xF3 impregnado en los billetes\u2026 casualidad, seguro."
+      puntos: 30
+    defensas:
+    - texto: "Me gusta que mi ropa huela bonito, no es un delito\u2026 todav\xEDa."
+      puntos: 10
+    - texto: "Lo compr\xE9 porque estaba en promoci\xF3n \u201Clleve 1 y finja estabilidad
+        econ\xF3mica\u201D."
+      puntos: 15
+    - texto: El olor fuerte es para tapar el olor a pobreza.
+      puntos: 5
+    - texto: "Si el suavizante fuera prueba de crimen, las tiendas estar\xEDan llenas
+        de criminales."
+      puntos: 10
