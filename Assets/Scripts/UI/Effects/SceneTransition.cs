@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using Unity.Netcode;
 
 public class SceneTransition : MonoBehaviour
 {
@@ -11,56 +12,62 @@ public class SceneTransition : MonoBehaviour
     [Header("Duración del fade")]
     public float fadeDuration = 0.8f;
 
+    [Header("Referencias de Red")]
+    [SerializeField] private TMP_InputField inputFieldCodigo;
+    [SerializeField] private RelayManager relayManager;
+
     void Start()
     {
-        if (canvasGroup == null)
-        {
-            Debug.LogError("[SceneTransition] No se ha asignado un CanvasGroup!");
-            return;
-        }
+        if (canvasGroup == null) return;
 
-        // Mata cualquier tween activo en este CanvasGroup
         canvasGroup.DOKill();
-
-        // Inicializa alpha en 1 (pantalla cubierta)
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
-        // Fade-in al inicio de la escena (1 -> 0)
-        canvasGroup.DOFade(0f, fadeDuration).OnUpdate(() =>
-        {
-            canvasGroup.blocksRaycasts = canvasGroup.alpha > 0f;
-        }).OnComplete(() =>
+        // Fade-in al abrir el menú (Pantalla negra -> Menú visible)
+        canvasGroup.DOFade(0f, fadeDuration).OnComplete(() =>
         {
             canvasGroup.blocksRaycasts = false;
-            Debug.Log("[SceneTransition] Fade-in completado");
         });
     }
 
-    // Método público para botones
-    public void LoadScene(string sceneName)
+    // --- MÉTODOS PARA LOS BOTONES ---
+
+    public void BotonHost()
     {
-        StartCoroutine(FadeAndLoad(sceneName));
+        // Hacemos el fade out y luego llamamos al Host
+        StartCoroutine(ProcesoTransicion(() => {
+            relayManager.Host();
+        }));
     }
 
-    IEnumerator FadeAndLoad(string sceneName)
+    public void BotonJoin()
     {
-        if (canvasGroup == null)
-            yield break;
-
-        // Mata cualquier tween activo en este CanvasGroup
-        DOTween.KillAll();
-
-        // Fade-out (0 -> 1)
-        canvasGroup.blocksRaycasts = true;
-        yield return canvasGroup.DOFade(1f, fadeDuration).OnUpdate(() =>
+        string codigo = inputFieldCodigo.text;
+        if (!string.IsNullOrEmpty(codigo))
         {
-            canvasGroup.blocksRaycasts = canvasGroup.alpha > 0f;
-        }).WaitForCompletion();
+            relayManager.Client(codigo);
+            // Hacemos el fade out y luego llamamos al Client
+            StartCoroutine(ProcesoTransicion(() => {
+                
+            }));
+        }
+        else
+        {
+            Debug.LogWarning("¡Debes ingresar un código!");
+        }
+    }
 
-        Debug.Log($"[SceneTransition] Fade-out completado, cargando escena {sceneName}");
+    // --- LA CORRUTINA DE TRANSICIÓN ---
+    // Esta función oscurece la pantalla y ejecuta la acción que le pidamos
+    IEnumerator ProcesoTransicion(System.Action accionAlOscurecer)
+    {
+        canvasGroup.blocksRaycasts = true;
 
-        // Cargar la nueva escena
-        SceneManager.LoadScene(sceneName);
+        // Esperamos a que el fade termine (Pantalla se vuelve negra)
+        yield return canvasGroup.DOFade(1f, fadeDuration).WaitForCompletion();
+
+        // Ejecutamos la conexión (Host o Join)
+        accionAlOscurecer?.Invoke();
     }
 }

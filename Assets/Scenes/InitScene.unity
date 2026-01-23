@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5845329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -736,7 +736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &503623919
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,7 +1007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &899835561
 Transform:
   m_ObjectHideFlags: 0
@@ -2029,7 +2029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1335389385
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2341,7 +2341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1356481062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2487,7 +2487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1397027474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3584,7 +3584,7 @@ GameObject:
   - component: {fileID: 9203194523811397510}
   m_Layer: 5
   m_Name: Text (TMP) (2)
-  m_TagString: Untagged
+  m_TagString: 'codeTxt '
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4760,6 +4760,7 @@ MonoBehaviour:
   agujaTransform: {fileID: 49899059}
   suavidadRotacion: 5
   casoActual: {fileID: 11400000, guid: 8b5bf5abe4f93ee45a652a17b065d267, type: 2}
+  joinCodeText: {fileID: 9203194523811397510}
 --- !u!114 &8540839716641876403
 MonoBehaviour:
   m_ObjectHideFlags: 0

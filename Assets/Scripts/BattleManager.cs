@@ -25,6 +25,8 @@ public class BattleManager : NetworkBehaviour
     [Header("Data")]
     [SerializeField] private CasoData casoActual;
 
+    [SerializeField] private TextMeshProUGUI joinCodeText;
+
     private bool juegoIniciado = false;
     private bool estaTipeando = false;
     private int puntosAcusacionActual = 0;
@@ -32,6 +34,25 @@ public class BattleManager : NetworkBehaviour
     private NetworkVariable<int> evidenciaIndice = new NetworkVariable<int>(0);
     private NetworkVariable<bool> esFaseAcusacion = new NetworkVariable<bool>(true);
     private NetworkVariable<float> inclinacionCulpabilidad = new NetworkVariable<float>(0f);
+
+    private void Update()
+    {
+        if (NetworkManager.Singleton.ConnectedClients.Count >= 2)
+        {
+            
+            if (joinCodeText != null)
+            {
+                joinCodeText.gameObject.SetActive(false);
+                Debug.Log("Jugador conectado: Ocultando código de unión");
+            }
+        }
+        else
+        {
+            joinCodeText.gameObject.SetActive(true);
+            joinCodeText.text = "Código de unión: " + RelayManager.joinCodeGame;
+        }
+        
+    }
 
     public override void OnNetworkSpawn()
     {

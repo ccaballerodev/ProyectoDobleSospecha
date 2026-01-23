@@ -1,36 +1,52 @@
-using UnityEngine;
+using System;
+using System.Threading.Tasks;
+using TMPro;
 using Unity.Netcode;
-using Unity.Services.Core;
+using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
-using Unity.Netcode.Transports.UTP;
-using System.Threading.Tasks;
-using TMPro; // Necesario para el texto
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RelayManager : MonoBehaviour
 {
     public static string joinCodeGame;
 
     [Header("UI References")]
-    [SerializeField] private TextMeshProUGUI joinCodeText; // Arrastra tu texto de UI aquí
+    [SerializeField] private TextMeshProUGUI joinCodeText;
 
     async void Start()
     {
-        await UnityServices.InitializeAsync();
-        if (!AuthenticationService.Instance.IsSignedIn)
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        try
+        {
+            await UnityServices.InitializeAsync();
+            if (!AuthenticationService.Instance.IsSignedIn)
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        // Ocultar el texto al iniciar
-        if (joinCodeText != null) joinCodeText.gameObject.SetActive(false);
+            if (joinCodeText != null) joinCodeText.gameObject.SetActive(false);
 
-        // Suscribirse al evento de conexión
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+            // --- ESTO ES LO QUE TE FALTA PARA DESBLOQUEAR AL CLIENTE ---
+            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        }
+        catch (Exception e) { Debug.LogError("Error en Inicialización: " + e.Message); }
+    }
+
+    // Esta función le da permiso al cliente para entrar
+    private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    {
+        // Aceptamos la conexión
+        response.Approved = true;
+        response.CreatePlayerObject = true;
+        // Importante: No dejar pendiente para que la escena cargue de inmediato
+        response.Pending = false;
     }
 
     private void OnDestroy()
     {
-        // Limpieza de eventos
         if (NetworkManager.Singleton != null)
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
     }
@@ -41,26 +57,20 @@ public class RelayManager : MonoBehaviour
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(2);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
             joinCodeGame = joinCode;
-            Debug.Log("JOIN CODE: " + joinCode);
 
-            // Mostrar el código en la UI
-            if (joinCodeText != null)
-            {
-                joinCodeText.text = "Código de Sala: " + joinCode;
-                joinCodeText.gameObject.SetActive(true);
-            }
+            Debug.Log("Codigo de unión generado: " + joinCode);
 
             var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, "dtls"));
 
-            NetworkManager.Singleton.StartHost();
+            if (NetworkManager.Singleton.StartHost())
+            {
+                // El Host cambia de escena y arrastra a los clientes
+                NetworkManager.Singleton.SceneManager.LoadScene("InitScene", LoadSceneMode.Single);
+            }
         }
-        catch (RelayServiceException e)
-        {
-            Debug.LogError(e);
-        }
+        catch (Exception e) { Debug.LogError(e); }
     }
 
     public async void Client(string joinCode)
@@ -72,25 +82,26 @@ public class RelayManager : MonoBehaviour
             var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, "dtls"));
 
-            NetworkManager.Singleton.StartClient();
+            // Iniciamos el cliente
+            if (!NetworkManager.Singleton.StartClient())
+            {
+                Debug.LogError("El NetworkManager no pudo arrancar.");
+            }
+            else
+            {
+                Debug.Log("<color=cyan>Cliente iniciado, esperando aprobación del Host...</color>");
+            }
         }
-        catch (RelayServiceException e)
-        {
-            Debug.LogError(e);
-        }
+        catch (Exception e) { Debug.LogError($"Error al unirse: {e.Message}"); }
     }
 
     private void OnClientConnected(ulong clientId)
     {
-        // Si somos el Host y se conecta alguien más (el cliente suele ser ID > 0)
-        // O simplemente si el conteo de clientes llega a 2
+        Debug.Log($"<color=green>¡CONECTADO! ID: {clientId}</color>");
+
         if (NetworkManager.Singleton.IsHost && NetworkManager.Singleton.ConnectedClients.Count >= 2)
         {
-            if (joinCodeText != null)
-            {
-                joinCodeText.gameObject.SetActive(false);
-                Debug.Log("Jugador conectado: Ocultando código de unión");
-            }
+            if (joinCodeText != null) joinCodeText.gameObject.SetActive(false);
         }
     }
 }
